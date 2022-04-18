@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>LAB EXERCISE</title>
+</head>
+<body>
+<!-- The form should submit to DiscussionController.create or DiscussionController.update,
+     depending on whether we are creating or editing an entity -->
+<form method="POST" th:action="@{'/books/{id}' (id=${book?.id})}">
+    <div>
+        <label for="f1">Name</label>
+        <input type="text"
+               id="f1"
+               name="name"
+               th:value="${book?.name}"
+               required>
+    </div>
+    <div>
+        <label for="f5">Available Copies</label>
+        <input type="number"
+               id="f5"
+               name="availableCopies"
+               th:value="${book?.availableCopies}"
+               required>
+    </div>
+    <div>
+        <label>Category</label><br/>
+        <select id="f2" name="category">
+            <!-- For each tag you should have one <option> like below  -->
+            <option th:each="category: ${categories}" th:value="${category}"  th:text="${category}"> [category_name]</option>
+        </select>
+    </div>
+    <div>
+        <label>Author Name</label><br/>
+        <select id="f3" name="authorId">
+            <!-- For each participant you should have one <option> like below  -->
+            <option th:each="author: ${authors}"  th:value="${author.id}" th:text="${author.name}"> [author.name]</option>
+
+        </select>
+    </div>
+
+    <button id="submit" type="submit">Submit</button>
+    <a id="back" href="/books" type="button" class="btn btn-primary">Back to discussions</a>
+</form>
+
+
+
+</body>
+</html>

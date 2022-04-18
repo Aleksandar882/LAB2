@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>LAB EXERCISE</title>
+</head>
+<body>
+
+<div>
+
+    <div>
+        <!-- ProductsController.showAdd -->
+        <a href="/books/add" class="add-item" >
+            Add new book
+        </a>
+    </div>
+    <table>
+        <tr>
+            <th>Book name</th>
+            <th>Category</th>
+            <th>Author Name</th>
+            <th>Author Surname</th>
+            <th>Available Copies</th>
+            <th>Actions</th>
+        </tr>
+        <!-- For each product you should have one <tr> like below -->
+        <tr class="item" th:each="book: ${books}">
+            <td th:text="${book.name}">[book.name]</td>
+            <td th:text="${book.category}">[book.category]</td>
+            <td th:text="${book.author?.name}">[book.author.name]</td>
+            <td th:text="${book.author?.surname}">[book.author.surname]</td>
+            <td th:text="${book.availableCopies}">[book.availableCopies]</td>
+            <td>
+                <th:block>
+                    <!-- DiscussionController.delete (Only MASTER can see this element)-->
+                    <form method="POST" th:action="@{'/books/{id}/delete' (id=${book.id})}" >
+                        <button type="submit" class="delete-item">Delete</button>
+                    </form>
+                    <!-- DiscussionController.showEdit (Only MASTER can see this element)-->
+                    <a th:href="@{'/books/{id}/edit' (id=${book.id})}" class="edit-item" >Edit</a>
+                </th:block>
+                <form method="POST" th:action="@{'/books/{id}/mark_as_taken' (id=${book.id})}">
+                    <button class="change-item">Mark as taken</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+</body>
+</html>
